@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiplyHQ — Login</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--gray-50); }
+    .auth-box { background: white; border: 1px solid var(--gray-200); border-radius: 14px; padding: 40px; width: 100%; max-width: 400px; }
+    .auth-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; justify-content: center; }
+    .auth-tabs { display: flex; gap: 4px; background: var(--gray-100); border-radius: 8px; padding: 4px; margin-bottom: 24px; }
+    .auth-tab { flex: 1; padding: 8px; border: none; border-radius: 6px; background: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all 0.15s; }
+    .auth-tab.active { background: white; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .auth-error { background: var(--red-light); color: var(--red); font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; display: none; }
+    .auth-btn { width: 100%; padding: 11px; border: none; border-radius: 8px; background: var(--blue); color: white; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
+    .auth-btn:hover { background: #2563EB; }
+  </style>
+</head>
+<body>
+  <div class="auth-box">
+    <div class="auth-logo">
+      <svg width="30" height="36" viewBox="0 0 30 38" fill="none">
+        <path d="M15 2 L27 19 L15 23 L15 2Z" fill="#1A1A2E"/>
+        <path d="M27 19 L15 36 L15 23 Z" fill="#1A1A2E" opacity="0.38"/>
+        <path d="M3 19 L15 2 L15 23 Z" fill="#1A1A2E" opacity="0.72"/>
+        <path d="M15 36 L3 19 L15 23 Z" fill="#3B82F6"/>
+        <circle cx="15" cy="21" r="2.8" fill="white"/>
+        <circle cx="15" cy="21" r="1.2" fill="#3B82F6"/>
+      </svg>
+      <span class="logo-wordmark">Wiply<span>HQ</span></span>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login', event)">Login</button>
+      <button class="auth-tab" onclick="switchTab('register', event)">Criar conta</button>
+    </div>
+
+    <div id="error-msg" class="auth-error"></div>
+
+    <!-- LOGIN -->
+    <div id="tab-login">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="login-email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input class="form-input" type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <button class="auth-btn" onclick="login()">Entrar</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="tab-register" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Nome</label>
+        <input class="form-input" type="text" id="reg-name" placeholder="Seu nome">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="reg-email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input class="form-input" type="password" id="reg-password" placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Empresa</label>
+        <input class="form-input" type="text" id="reg-company" placeholder="Nome da sua empresa">
+      </div>
+      <button class="auth-btn" onclick="register()">Criar conta</button>
+    </div>
+  </div>
+
+  <script>
+    var API = 'https://wiplyhq-backend-production.up.railway.app';
+
+    function switchTab(tab, e) {
+      document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+      e.target.classList.add('active');
+      document.getElementById('tab-login').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('tab-register').style.display = tab === 'register' ? 'block' : 'none';
+      document.getElementById('error-msg').style.display = 'none';
+    }
+
+    function showError(msg) {
+      var el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function login() {
+      var email = document.getElementById('login-email').value;
+      var password = document.getElementById('login-password').value;
+
+      if (!email || !password) return showError('Preencha todos os campos');
+
+      fetch(API + '/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password })
+      })
+      .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
+      .then(function(result) {
+        if (!result.ok) return showError(result.data.error);
+        localStorage.setItem('token', result.data.token);
+        localStorage.setItem('user', JSON.stringify(result.data.user));
+        window.location.href = 'index.html';
+      })
+      .catch(function() { showError('Erro ao conectar com o servidor'); });
+    }
+
+    function register() {
+      var name = document.getElementById('reg-name').value;
+      var email = document.getElementById('reg-email').value;
+      var password = document.getElementById('reg-password').value;
+      var company = document.getElementById('reg-company').value;
+
+      if (!name || !email || !password) return showError('Preencha todos os campos');
+
+      fetch(API + '/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, password: password, company: company })
+      })
+      .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
+      .then(function(result) {
+        if (!result.ok) return showError(result.data.error);
+        localStorage.setItem('token', result.data.token);
+        localStorage.setItem('user', JSON.stringify(result.data.user));
+        window.location.href = 'index.html';
+      })
+      .catch(function() { showError('Erro ao conectar com o servidor'); });
+    }
+
+    if (localStorage.getItem('token')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
