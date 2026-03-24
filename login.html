@@ -9,12 +9,17 @@
     body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--gray-50); }
     .auth-box { background: white; border: 1px solid var(--gray-200); border-radius: 14px; padding: 40px; width: 100%; max-width: 400px; }
     .auth-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; justify-content: center; }
+    .role-selector { display: flex; gap: 10px; margin-bottom: 24px; }
+    .role-btn { flex: 1; padding: 12px; border: 2px solid var(--gray-200); border-radius: 10px; background: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all 0.15s; text-align: center; }
+    .role-btn.active { border-color: var(--blue); color: var(--blue); background: #EFF6FF; }
+    .role-btn svg { display: block; margin: 0 auto 6px; width: 22px; height: 22px; }
     .auth-tabs { display: flex; gap: 4px; background: var(--gray-100); border-radius: 8px; padding: 4px; margin-bottom: 24px; }
     .auth-tab { flex: 1; padding: 8px; border: none; border-radius: 6px; background: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all 0.15s; }
     .auth-tab.active { background: white; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
     .auth-error { background: var(--red-light); color: var(--red); font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; display: none; }
     .auth-btn { width: 100%; padding: 11px; border: none; border-radius: 8px; background: var(--blue); color: white; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
     .auth-btn:hover { background: #2563EB; }
+    .divider { height: 1px; background: var(--gray-100); margin: 20px 0; }
   </style>
 </head>
 <body>
@@ -31,9 +36,22 @@
       <span class="logo-wordmark">Wiply<span>HQ</span></span>
     </div>
 
-    <div class="auth-tabs">
+    <!-- ROLE SELECTOR -->
+    <div class="role-selector">
+      <button class="role-btn active" id="role-owner" onclick="selectRole('owner')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        I'm a Business Owner
+      </button>
+      <button class="role-btn" id="role-cleaner" onclick="selectRole('cleaner')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        I'm a Cleaner
+      </button>
+    </div>
+
+    <!-- TABS (only for owner) -->
+    <div id="owner-tabs" class="auth-tabs">
       <button class="auth-tab active" onclick="switchTab('login', event)">Login</button>
-      <button class="auth-tab" onclick="switchTab('register', event)">Criar conta</button>
+      <button class="auth-tab" onclick="switchTab('register', event)">Create account</button>
     </div>
 
     <div id="error-msg" class="auth-error"></div>
@@ -42,39 +60,52 @@
     <div id="tab-login">
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input class="form-input" type="email" id="login-email" placeholder="seu@email.com">
+        <input class="form-input" type="email" id="login-email" placeholder="your@email.com">
       </div>
       <div class="form-group">
-        <label class="form-label">Senha</label>
+        <label class="form-label">Password</label>
         <input class="form-input" type="password" id="login-password" placeholder="••••••••">
       </div>
-      <button class="auth-btn" onclick="login()">Entrar</button>
+      <button class="auth-btn" onclick="login()">Sign In</button>
     </div>
 
-    <!-- REGISTER -->
+    <!-- REGISTER (owner only) -->
     <div id="tab-register" style="display:none">
       <div class="form-group">
-        <label class="form-label">Nome</label>
-        <input class="form-input" type="text" id="reg-name" placeholder="Seu nome">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" type="text" id="reg-name" placeholder="Your name">
       </div>
       <div class="form-group">
         <label class="form-label">Email</label>
-        <input class="form-input" type="email" id="reg-email" placeholder="seu@email.com">
+        <input class="form-input" type="email" id="reg-email" placeholder="your@email.com">
       </div>
       <div class="form-group">
-        <label class="form-label">Senha</label>
+        <label class="form-label">Password</label>
         <input class="form-input" type="password" id="reg-password" placeholder="••••••••">
       </div>
       <div class="form-group">
-        <label class="form-label">Empresa</label>
-        <input class="form-input" type="text" id="reg-company" placeholder="Nome da sua empresa">
+        <label class="form-label">Company</label>
+        <input class="form-input" type="text" id="reg-company" placeholder="Your company name">
       </div>
-      <button class="auth-btn" onclick="register()">Criar conta</button>
+      <button class="auth-btn" onclick="register()">Create Account</button>
     </div>
   </div>
 
   <script>
     var API = 'https://wiplyhq-backend-production.up.railway.app';
+    var currentRole = 'owner';
+
+    function selectRole(role) {
+      currentRole = role;
+      document.getElementById('role-owner').classList.toggle('active', role === 'owner');
+      document.getElementById('role-cleaner').classList.toggle('active', role === 'cleaner');
+      document.getElementById('owner-tabs').style.display = role === 'owner' ? 'flex' : 'none';
+      document.getElementById('tab-register').style.display = 'none';
+      document.getElementById('tab-login').style.display = 'block';
+      document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelector('.auth-tab').classList.add('active');
+      document.getElementById('error-msg').style.display = 'none';
+    }
 
     function switchTab(tab, e) {
       document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
@@ -93,8 +124,7 @@
     function login() {
       var email = document.getElementById('login-email').value;
       var password = document.getElementById('login-password').value;
-
-      if (!email || !password) return showError('Preencha todos os campos');
+      if (!email || !password) return showError('Please fill in all fields');
 
       fetch(API + '/api/auth/login', {
         method: 'POST',
@@ -104,11 +134,26 @@
       .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
       .then(function(result) {
         if (!result.ok) return showError(result.data.error);
+
+        var user = result.data.user;
+
+        if (currentRole === 'cleaner' && user.role !== 'cleaner') {
+          return showError('This account is not a cleaner account.');
+        }
+        if (currentRole === 'owner' && user.role !== 'owner') {
+          return showError('This account is not a business owner account.');
+        }
+
         localStorage.setItem('token', result.data.token);
-        localStorage.setItem('user', JSON.stringify(result.data.user));
-        window.location.href = 'index.html';
+        localStorage.setItem('user', JSON.stringify(user));
+
+        if (user.role === 'cleaner') {
+          window.location.href = 'cleaner.html';
+        } else {
+          window.location.href = 'index.html';
+        }
       })
-      .catch(function() { showError('Erro ao conectar com o servidor'); });
+      .catch(function() { showError('Error connecting to server'); });
     }
 
     function register() {
@@ -116,8 +161,7 @@
       var email = document.getElementById('reg-email').value;
       var password = document.getElementById('reg-password').value;
       var company = document.getElementById('reg-company').value;
-
-      if (!name || !email || !password) return showError('Preencha todos os campos');
+      if (!name || !email || !password) return showError('Please fill in all fields');
 
       fetch(API + '/api/auth/register', {
         method: 'POST',
@@ -131,11 +175,13 @@
         localStorage.setItem('user', JSON.stringify(result.data.user));
         window.location.href = 'index.html';
       })
-      .catch(function() { showError('Erro ao conectar com o servidor'); });
+      .catch(function() { showError('Error connecting to server'); });
     }
 
     if (localStorage.getItem('token')) {
-      window.location.href = 'index.html';
+      var u = JSON.parse(localStorage.getItem('user') || '{}');
+      if (u.role === 'cleaner') window.location.href = 'cleaner.html';
+      else window.location.href = 'index.html';
     }
   </script>
 </body>

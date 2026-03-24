@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiplyHQ — My Jobs</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: var(--gray-50); }
+    .cleaner-dashboard { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
+    .cleaner-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+    .cleaner-logo { display: flex; align-items: center; gap: 10px; }
+    .cleaner-welcome { font-size: 14px; color: var(--gray-500); }
+    .cleaner-welcome span { font-weight: 600; color: var(--navy); }
+    .logout-btn { padding: 8px 16px; border: 1px solid var(--gray-200); border-radius: 8px; background: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; }
+    .logout-btn:hover { background: var(--gray-50); }
+    .jobs-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
+    .job-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .job-card-left { display: flex; flex-direction: column; gap: 6px; }
+    .job-card-client { font-size: 16px; font-weight: 600; color: var(--navy); }
+    .job-card-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .job-card-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-500); }
+    .job-card-meta-item svg { width: 14px; height: 14px; }
+    .job-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+    .job-price { font-size: 18px; font-weight: 700; color: var(--navy); }
+    .complete-btn { padding: 8px 16px; border: none; border-radius: 8px; background: var(--blue); color: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+    .complete-btn:hover { background: #2563EB; }
+    .complete-btn:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); font-size: 15px; }
+    .summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+    .summary-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px 20px; }
+    .summary-label { font-size: 12px; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
+    .summary-value { font-size: 22px; font-weight: 700; color: var(--navy); }
+  </style>
+</head>
+<body>
+  <div class="cleaner-dashboard">
+    <div class="cleaner-header">
+      <div class="cleaner-logo">
+        <svg width="28" height="34" viewBox="0 0 30 38" fill="none">
+          <path d="M15 2 L27 19 L15 23 L15 2Z" fill="#1A1A2E"/>
+          <path d="M27 19 L15 36 L15 23 Z" fill="#1A1A2E" opacity="0.38"/>
+          <path d="M3 19 L15 2 L15 23 Z" fill="#1A1A2E" opacity="0.72"/>
+          <path d="M15 36 L3 19 L15 23 Z" fill="#3B82F6"/>
+          <circle cx="15" cy="21" r="2.8" fill="white"/>
+          <circle cx="15" cy="21" r="1.2" fill="#3B82F6"/>
+        </svg>
+        <span class="logo-wordmark">Wiply<span>HQ</span></span>
+      </div>
+      <div class="cleaner-welcome">Welcome, <span id="cleaner-name">...</span></div>
+      <button class="logout-btn" onclick="logout()">Log out</button>
+    </div>
+
+    <div class="summary-cards">
+      <div class="summary-card">
+        <div class="summary-label">Upcoming Jobs</div>
+        <div class="summary-value" id="total-jobs">0</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Completed</div>
+        <div class="summary-value" id="completed-jobs">0</div>
+      </div>
+      <div class
