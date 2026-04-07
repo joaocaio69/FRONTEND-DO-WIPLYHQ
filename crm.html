@@ -1,0 +1,128 @@
+<!-- ═══════════════════════════════════════════
+     WiplyHQ CRM — crm.html
+     Integração: adicione este bloco como page
+     dentro do seu index.html e inclua crm.css
+     e crm.js nos respectivos bundles.
+     ════════════════════════════════════════════ -->
+
+<div class="page" id="page-crm">
+
+  <!-- ── HEADER ── -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">CRM</h1>
+      <p class="page-sub">Gestão de relacionamento com clientes</p>
+    </div>
+  </div>
+
+  <!-- ── TABS ── -->
+  <div class="crm-tabs" id="crm-tabs">
+    <button class="crm-tab on" data-tab="pipeline">Pipeline</button>
+    <button class="crm-tab" data-tab="inbox">
+      Inbox
+      <span class="crm-badge badge-info" id="inbox-unread-badge">3</span>
+    </button>
+    <button class="crm-tab" data-tab="reativacao">
+      Fila de reativação
+      <span class="crm-badge badge-warning" id="react-badge">3</span>
+    </button>
+    <button class="crm-tab" data-tab="historico">Histórico</button>
+  </div>
+
+  <!-- ══════════ PIPELINE ══════════ -->
+  <div class="crm-sec on" id="crm-pipeline">
+    <div class="pipeline-board" id="pipeline-board">
+      <!-- renderizado via crm.js → renderPipeline() -->
+    </div>
+  </div>
+
+  <!-- ══════════ INBOX ══════════ -->
+  <div class="crm-sec" id="crm-inbox">
+    <div class="inbox-shell">
+
+      <!-- sidebar de conversas -->
+      <div class="inbox-sidebar">
+        <div class="inbox-sb-header">
+          <div class="inbox-sb-title">Mensagens</div>
+          <input
+            class="inbox-search"
+            type="text"
+            placeholder="Buscar conversa..."
+            id="inbox-search-input"
+          />
+        </div>
+        <div class="inbox-filters" id="inbox-filters">
+          <button class="inf on" data-filter="all">Todos</button>
+          <button class="inf" data-filter="wa">WhatsApp</button>
+          <button class="inf" data-filter="sms">SMS</button>
+          <button class="inf" data-filter="call">Ligação</button>
+        </div>
+        <div class="inbox-conv-list" id="inbox-conv-list">
+          <!-- renderizado via crm.js → renderInboxList() -->
+        </div>
+      </div>
+
+      <!-- área principal da conversa -->
+      <div class="inbox-main" id="inbox-main">
+        <div class="inbox-empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Selecione uma conversa</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ FILA DE REATIVAÇÃO ══════════ -->
+  <div class="crm-sec" id="crm-reativacao">
+
+    <!-- stats -->
+    <div class="crm-stats-row">
+      <div class="crm-stat-card">
+        <div class="crm-stat-label">Em risco</div>
+        <div class="crm-stat-value warning" id="react-stat-risk">0</div>
+      </div>
+      <div class="crm-stat-card">
+        <div class="crm-stat-label">Inativos</div>
+        <div class="crm-stat-value danger" id="react-stat-inactive">0</div>
+      </div>
+      <div class="crm-stat-card">
+        <div class="crm-stat-label">Receita em risco</div>
+        <div class="crm-stat-value" id="react-stat-revenue">—</div>
+      </div>
+      <div class="crm-stat-card">
+        <div class="crm-stat-label">Follow-ups automáticos</div>
+        <div class="crm-stat-value success" id="react-stat-auto">0</div>
+      </div>
+    </div>
+
+    <!-- aviso de automação -->
+    <div class="crm-auto-notice">
+      <div class="crm-auto-dot"></div>
+      <span>
+        Follow-up automático ativo para todos os clientes com score abaixo de 65
+        — sem nenhuma ação necessária.
+      </span>
+    </div>
+
+    <!-- lista -->
+    <div id="react-list">
+      <!-- renderizado via crm.js → renderReativacao() -->
+    </div>
+
+  </div>
+
+  <!-- ══════════ HISTÓRICO ══════════ -->
+  <div class="crm-sec" id="crm-historico">
+    <select class="crm-hist-select" id="hist-select">
+      <!-- options preenchidas via crm.js → renderHistSelect() -->
+    </select>
+    <div id="hist-content">
+      <!-- renderizado via crm.js → renderHist(id) -->
+    </div>
+  </div>
+
+</div>
+<!-- /page-crm -->
