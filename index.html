@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,7 +9,8 @@
 </head>
 <body>
 
-<!-- ═══════════ SIDEBAR ═══════════ -->
+<!-- SIDEBAR -->
+
 <aside class="sidebar">
   <div class="sidebar-logo">
     <svg width="30" height="36" viewBox="0 0 30 38" fill="none">
@@ -30,38 +32,56 @@
       </svg>
       Dashboard
     </button>
-    <button class="nav-item" id="nav-schedule" onclick="showPage('schedule')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-      Schedule
-    </button>
-    <button class="nav-item" id="nav-recurring" onclick="showPage('recurring')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
-        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-      </svg>
-      Recurring Cleanings
-    </button>
-    <button class="nav-item" id="nav-cleaners" onclick="showPage('cleaners')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-      </svg>
-      Cleaners
-    </button>
-    <button class="nav-item" id="nav-revenue" onclick="showPage('revenue')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-      </svg>
-      Revenue
-    </button>
-    <button class="nav-item" id="nav-notifications" onclick="showPage('notifications')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-      </svg>
-      <button class="nav-item" id="nav-crm" onclick="showPage('crm')">
+
+```
+<button class="nav-item" id="nav-clients" onclick="showPage('clients')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+  Clients
+</button>
+
+<button class="nav-item" id="nav-schedule" onclick="showPage('schedule')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+    <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+  </svg>
+  Schedule
+</button>
+
+<button class="nav-item" id="nav-recurring" onclick="showPage('recurring')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+  </svg>
+  Recurring Cleanings
+</button>
+
+<button class="nav-item" id="nav-cleaners" onclick="showPage('cleaners')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </svg>
+  Cleaners
+</button>
+
+<button class="nav-item" id="nav-revenue" onclick="showPage('revenue')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+  </svg>
+  Revenue
+</button>
+
+<button class="nav-item" id="nav-notifications" onclick="showPage('notifications')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+  </svg>
+  Notifications
+  <span class="nav-badge" id="notif-badge">3</span>
+</button>
+
+<button class="nav-item" id="nav-crm" onclick="showPage('crm')">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
     <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -69,16 +89,15 @@
   CRM
 </button>
 
-      Notifications
-      <span class="nav-badge" id="notif-badge">3</span>
-    </button>
-    <button class="nav-item" id="nav-settings" onclick="showPage('settings')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>
-      Settings
-    </button>
+<button class="nav-item" id="nav-settings" onclick="showPage('settings')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+  Settings
+</button>
+```
+
   </nav>
 
   <div class="sidebar-footer">
@@ -91,10 +110,12 @@
   </div>
 </aside>
 
-<!-- ═══════════ MAIN ═══════════ -->
+<!-- MAIN -->
+
 <main class="main">
 
   <!-- TOPBAR -->
+
   <header class="topbar">
     <span class="topbar-title">WiplyHQ</span>
     <div class="topbar-right">
@@ -105,11 +126,12 @@
         </svg>
         <span class="notif-dot"></span>
       </div>
-      <div class="topbar-avatar">JD</div>
+      <div class="topbar-avatar">--</div>
     </div>
   </header>
 
   <!-- PAGE: DASHBOARD -->
+
   <div class="page active" id="page-dashboard">
     <div class="page-header">
       <div>
@@ -119,19 +141,19 @@
     </div>
     <div class="stats-grid">
       <div class="stat-card">
-        <div><div class="stat-label">Weekly Revenue</div><div class="stat-value">$2.830</div></div>
+        <div><div class="stat-label">Weekly Revenue</div><div class="stat-value" id="dash-weekly">$0</div></div>
         <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
       </div>
       <div class="stat-card">
-        <div><div class="stat-label">Jobs This Week</div><div class="stat-value">7</div></div>
+        <div><div class="stat-label">Jobs This Week</div><div class="stat-value" id="dash-jobs">0</div></div>
         <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
       </div>
       <div class="stat-card">
-        <div><div class="stat-label">Active Clients</div><div class="stat-value">6</div></div>
+        <div><div class="stat-label">Active Clients</div><div class="stat-value" id="dash-clients">0</div></div>
         <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       </div>
       <div class="stat-card">
-        <div><div class="stat-label">Completed Cleanings</div><div class="stat-value">1</div></div>
+        <div><div class="stat-label">Completed Cleanings</div><div class="stat-value" id="dash-completed">0</div></div>
         <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
       </div>
     </div>
@@ -148,13 +170,13 @@
               <div class="grid-line" style="top:0%"></div><div class="grid-line" style="top:25%"></div>
               <div class="grid-line" style="top:50%"></div><div class="grid-line" style="top:75%"></div>
               <div class="bars-row">
-                <div class="bar-item"><div class="bar-body" style="height:55%"></div><span class="bar-day">Mon</span></div>
-                <div class="bar-item"><div class="bar-body" style="height:47%"></div><span class="bar-day">Tue</span></div>
-                <div class="bar-item"><div class="bar-body" style="height:65%"></div><span class="bar-day">Wed</span></div>
-                <div class="bar-item"><div class="bar-body" style="height:38%"></div><span class="bar-day">Thu</span></div>
-                <div class="bar-item"><div class="bar-body" style="height:78%"></div><span class="bar-day">Fri</span></div>
-                <div class="bar-item"><div class="bar-body" style="height:52%"></div><span class="bar-day">Sat</span></div>
-                <div class="bar-item"><div class="bar-body" style="height:18%"></div><span class="bar-day">Sun</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Mon</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Tue</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Wed</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Thu</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Fri</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Sat</span></div>
+                <div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Sun</span></div>
               </div>
             </div>
           </div>
@@ -167,6 +189,7 @@
   </div>
 
   <!-- PAGE: CLIENTS -->
+
   <div class="page" id="page-clients">
     <div class="page-header">
       <h1 class="page-title">Clients</h1>
@@ -180,6 +203,7 @@
   </div>
 
   <!-- PAGE: SCHEDULE -->
+
   <div class="page" id="page-schedule">
     <div class="schedule-header">
       <div><h1 class="page-title">Schedule</h1></div>
@@ -196,17 +220,18 @@
       </div>
     </div>
     <div class="week-grid">
-      <div class="day-col"><div class="day-header"><div class="day-name">Mon</div><div class="day-num">16</div></div><div class="day-body"></div></div>
-      <div class="day-col"><div class="day-header"><div class="day-name">Tue</div><div class="day-num">17</div></div><div class="day-body"></div></div>
-      <div class="day-col"><div class="day-header"><div class="day-name">Wed</div><div class="day-num">18</div></div><div class="day-body"></div></div>
-      <div class="day-col"><div class="day-header"><div class="day-name">Thu</div><div class="day-num">19</div></div><div class="day-body"></div></div>
-      <div class="day-col"><div class="day-header"><div class="day-name">Fri</div><div class="day-num today">20</div></div><div class="day-body"></div></div>
-      <div class="day-col"><div class="day-header"><div class="day-name">Sat</div><div class="day-num">21</div></div><div class="day-body"></div></div>
-      <div class="day-col"><div class="day-header"><div class="day-name">Sun</div><div class="day-num">22</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Mon</div><div class="day-num">--</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Tue</div><div class="day-num">--</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Wed</div><div class="day-num">--</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Thu</div><div class="day-num">--</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Fri</div><div class="day-num">--</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Sat</div><div class="day-num">--</div></div><div class="day-body"></div></div>
+      <div class="day-col"><div class="day-header"><div class="day-name">Sun</div><div class="day-num">--</div></div><div class="day-body"></div></div>
     </div>
   </div>
 
   <!-- PAGE: RECURRING -->
+
   <div class="page" id="page-recurring">
     <div class="page-header">
       <h1 class="page-title">Recurring Cleanings</h1>
@@ -216,6 +241,7 @@
   </div>
 
   <!-- PAGE: CLEANERS -->
+
   <div class="page" id="page-cleaners">
     <div class="page-header">
       <h1 class="page-title">Cleaners</h1>
@@ -225,6 +251,7 @@
   </div>
 
   <!-- PAGE: REVENUE -->
+
   <div class="page" id="page-revenue">
     <div class="page-header"><h1 class="page-title">Revenue</h1></div>
     <div class="stats-grid">
@@ -238,7 +265,7 @@
         <div class="card-title">Weekly Revenue</div>
         <div class="chart-inner">
           <div class="y-axis"><span class="y-label">$800</span><span class="y-label">$600</span><span class="y-label">$400</span><span class="y-label">$200</span><span class="y-label">$0</span></div>
-          <div class="bars-area"><div class="grid-zone"><div class="grid-line" style="top:0%"></div><div class="grid-line" style="top:25%"></div><div class="grid-line" style="top:50%"></div><div class="grid-line" style="top:75%"></div><div class="bars-row"><div class="bar-item"><div class="bar-body" style="height:55%"></div><span class="bar-day">Mon</span></div><div class="bar-item"><div class="bar-body" style="height:47%"></div><span class="bar-day">Tue</span></div><div class="bar-item"><div class="bar-body" style="height:65%"></div><span class="bar-day">Wed</span></div><div class="bar-item"><div class="bar-body" style="height:38%"></div><span class="bar-day">Thu</span></div><div class="bar-item"><div class="bar-body" style="height:78%"></div><span class="bar-day">Fri</span></div><div class="bar-item"><div class="bar-body" style="height:52%"></div><span class="bar-day">Sat</span></div><div class="bar-item"><div class="bar-body" style="height:18%"></div><span class="bar-day">Sun</span></div></div></div></div>
+          <div class="bars-area"><div class="grid-zone"><div class="grid-line" style="top:0%"></div><div class="grid-line" style="top:25%"></div><div class="grid-line" style="top:50%"></div><div class="grid-line" style="top:75%"></div><div class="bars-row"><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Mon</span></div><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Tue</span></div><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Wed</span></div><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Thu</span></div><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Fri</span></div><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Sat</span></div><div class="bar-item"><div class="bar-body" style="height:0%"></div><span class="bar-day">Sun</span></div></div></div></div>
         </div>
       </div>
       <div class="chart-card">
@@ -248,8 +275,7 @@
           <div class="bars-area"><div class="grid-zone"><div class="grid-line" style="top:0%"></div><div class="grid-line" style="top:25%"></div><div class="grid-line" style="top:50%"></div><div class="grid-line" style="top:75%"></div>
             <svg style="position:absolute;inset:0;width:100%;height:calc(100% - 26px);overflow:visible;" preserveAspectRatio="none" viewBox="0 0 100 100">
               <defs><linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2"/><stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/></linearGradient></defs>
-              <path d="M0,55 C10,52 20,40 33,38 C46,36 60,44 70,42 C80,40 90,20 100,8" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
-              <path d="M0,55 C10,52 20,40 33,38 C46,36 60,44 70,42 C80,40 90,20 100,8 L100,100 L0,100 Z" fill="url(#lineGrad)"/>
+              <path d="M0,100 L100,100" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
             </svg>
             <div style="position:absolute;bottom:0;left:8px;right:8px;display:flex;justify-content:space-between;"><span class="bar-day">Jan</span><span class="bar-day">Feb</span><span class="bar-day">Mar</span><span class="bar-day">Apr</span><span class="bar-day">May</span><span class="bar-day">Jun</span></div>
           </div></div>
@@ -259,31 +285,36 @@
   </div>
 
   <!-- PAGE: NOTIFICATIONS -->
+
   <div class="page" id="page-notifications">
     <div class="page-header">
       <h1 class="page-title">Notifications</h1>
       <button class="btn-outline" onclick="markAllRead()">Mark all as read</button>
     </div>
     <div class="card">
-      <div class="notif-list">
-        <div class="notif-item unread" id="notif-1"><div class="notif-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="notif-content"><div class="notif-title">Cleaning Scheduled <span class="notif-dot-inline"></span></div><div class="notif-msg">Cleaning for Sarah Johnson confirmed for today at 9:00 AM</div><div class="notif-time">2 hours ago</div></div></div>
-        <div class="notif-item unread" id="notif-2"><div class="notif-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="notif-content"><div class="notif-title">24h Reminder <span class="notif-dot-inline"></span></div><div class="notif-msg">Reminder: Lisa Thompson cleaning tomorrow at 9:00 AM</div><div class="notif-time">3 hours ago</div></div></div>
-        <div class="notif-item unread" id="notif-3"><div class="notif-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="notif-content"><div class="notif-title">Cleaner Arriving <span class="notif-dot-inline"></span></div><div class="notif-msg">Ana Silva is arriving at 123 Oak Street</div><div class="notif-time">30 min ago</div></div></div>
-        <div class="notif-item"><div class="notif-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="notif-content"><div class="notif-title">Cleaning Completed</div><div class="notif-msg">James Wilson cleaning completed by Carlos Oliveira</div><div class="notif-time">1 hour ago</div></div></div>
-        <div class="notif-item"><div class="notif-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="notif-content"><div class="notif-title">24h Reminder</div><div class="notif-msg">Reminder: Robert Martinez cleaning tomorrow at 1:00 PM</div><div class="notif-time">4 hours ago</div></div></div>
+      <div class="notif-list" id="notif-list">
+        <div style="text-align:center;color:#94a3b8;padding:48px 0;">No notifications yet.</div>
       </div>
     </div>
   </div>
 
+  <!-- PAGE: CRM -->
+
+  <div class="page" id="page-crm">
+    <div class="page-header"><h1 class="page-title">CRM</h1></div>
+    <div id="crm-content" style="color:#94a3b8;padding:48px 0;text-align:center;">Loading CRM...</div>
+  </div>
+
   <!-- PAGE: SETTINGS -->
+
   <div class="page" id="page-settings">
     <div class="page-header"><h1 class="page-title">Settings</h1></div>
     <div class="settings-stack">
       <div class="settings-card">
         <div class="settings-card-header"><div class="settings-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h2 class="settings-card-title">Company Information</h2></div>
-        <div class="settings-field"><label class="settings-label">Company Name</label><input class="settings-input" type="text" value="WiplyHQ"/></div>
-        <div class="settings-field"><label class="settings-label">Phone</label><input class="settings-input" type="tel" value="(555) 000-0000"/></div>
-        <div class="settings-field"><label class="settings-label">Address</label><input class="settings-input" type="text" value="Austin, TX"/></div>
+        <div class="settings-field"><label class="settings-label">Company Name</label><input class="settings-input" type="text" id="settings-company" placeholder="Your company name"/></div>
+        <div class="settings-field"><label class="settings-label">Phone</label><input class="settings-input" type="tel" id="settings-phone" placeholder="(555) 000-0000"/></div>
+        <div class="settings-field"><label class="settings-label">Address</label><input class="settings-input" type="text" id="settings-address" placeholder="City, State"/></div>
       </div>
       <div class="settings-card">
         <div class="settings-card-header"><div class="settings-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h2 class="settings-card-title">Team Permissions</h2></div>
@@ -300,13 +331,16 @@
         <div class="settings-card-header"><div class="settings-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h2 class="settings-card-title">Language Settings</h2></div>
         <div class="settings-field"><label class="settings-label">Language</label><div class="settings-select-wrap"><select class="settings-select"><option value="en" selected>English</option><option value="pt">Português (BR)</option><option value="es">Español</option></select><svg class="settings-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
       </div>
-      <div class="settings-actions"><button class="btn-primary">Save</button></div>
+      <div class="settings-actions">
+        <button class="btn-primary" onclick="logout()">Log Out</button>
+      </div>
     </div>
   </div>
 
 </main>
 
 <!-- MODALS -->
+
 <div class="modal-overlay" id="modal-client" onclick="closeModalOutside(event,'modal-client')">
   <div class="modal">
     <div class="modal-header"><span class="modal-title">Add Client</span><button class="modal-close" onclick="closeModal('modal-client')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
@@ -351,14 +385,29 @@
 </div>
 
 <script>
+  // Proteção de rota
   if (!localStorage.getItem('token')) window.location.href = 'login.html';
   var user = JSON.parse(localStorage.getItem('user') || '{}');
+  if (user.role === 'cleaner') window.location.href = 'cleaner.html';
+
+  // Avatar com iniciais do usuário logado
   var avatar = document.querySelector('.topbar-avatar');
   if (avatar && user.name) {
     var initials = user.name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().slice(0, 2);
     avatar.textContent = initials;
   }
+
+  // Preenche settings com dados do usuário
+  if (user.company) { var sc = document.getElementById('settings-company'); if(sc) sc.value = user.company; }
+
+  function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+  }
 </script>
+
 <script src="script.js"></script>
+
 </body>
 </html>
