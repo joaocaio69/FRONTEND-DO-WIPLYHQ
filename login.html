@@ -1,99 +1,260 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WiplyHQ — Login</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--gray-50); }
-    .auth-box { background: white; border: 1px solid var(--gray-200); border-radius: 14px; padding: 40px; width: 100%; max-width: 400px; }
-    .auth-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; justify-content: center; }
-    .role-selector { display: flex; gap: 10px; margin-bottom: 24px; }
-    .role-btn { flex: 1; padding: 12px; border: 2px solid var(--gray-200); border-radius: 10px; background: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all 0.15s; text-align: center; }
-    .role-btn.active { border-color: var(--blue); color: var(--blue); background: #EFF6FF; }
-    .role-btn svg { display: block; margin: 0 auto 6px; width: 22px; height: 22px; }
-    .auth-tabs { display: flex; gap: 4px; background: var(--gray-100); border-radius: 8px; padding: 4px; margin-bottom: 24px; }
-    .auth-tab { flex: 1; padding: 8px; border: none; border-radius: 6px; background: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all 0.15s; }
-    .auth-tab.active { background: white; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-    .auth-error { background: var(--red-light); color: var(--red); font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; display: none; }
-    .auth-btn { width: 100%; padding: 11px; border: none; border-radius: 8px; background: var(--blue); color: white; font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s; margin-top: 8px; }
-    .auth-btn:hover { background: #2563EB; }
-    .divider { height: 1px; background: var(--gray-100); margin: 20px 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #3B82F6;
+      --blue-dark: #2563EB;
+      --navy: #1A1A2E;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E1;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-50);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 50%, #EFF6FF 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, #F0FDF4 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .auth-wrap { position: relative; z-index: 1; width: 100%; max-width: 420px; }
+    .auth-box {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .auth-logo { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 32px; }
+    .logo-wordmark { font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: -0.3px; }
+    .logo-wordmark span { color: var(--blue); }
+
+```
+.role-selector { display: flex; gap: 10px; margin-bottom: 24px; }
+.role-btn {
+  flex: 1; padding: 14px 12px;
+  border: 2px solid var(--gray-200); border-radius: 12px;
+  background: white; font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500; color: var(--gray-500);
+  cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.4;
+}
+.role-btn svg { display: block; margin: 0 auto 8px; width: 22px; height: 22px; }
+.role-btn:hover { border-color: var(--gray-300); color: var(--gray-600); }
+.role-btn.active { border-color: var(--blue); color: var(--blue); background: #EFF6FF; }
+
+.auth-tabs {
+  display: flex; gap: 4px;
+  background: var(--gray-100); border-radius: 10px;
+  padding: 4px; margin-bottom: 24px;
+}
+.auth-tab {
+  flex: 1; padding: 9px; border: none; border-radius: 7px;
+  background: none; font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all 0.15s;
+}
+.auth-tab.active { background: white; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+.auth-error {
+  background: #FEE2E2; color: #DC2626; font-size: 13px;
+  padding: 11px 14px; border-radius: 8px; margin-bottom: 16px;
+  display: none; border: 1px solid #FECACA;
+}
+.auth-success {
+  background: #D1FAE5; color: #059669; font-size: 13px;
+  padding: 11px 14px; border-radius: 8px; margin-bottom: 16px;
+  display: none; border: 1px solid #A7F3D0;
+}
+
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 13px; font-weight: 500; color: var(--gray-600); margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid var(--gray-200); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy);
+  background: white; transition: border-color 0.15s, box-shadow 0.15s; outline: none;
+}
+.form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.form-input::placeholder { color: var(--gray-300); }
+
+.auth-btn {
+  width: 100%; padding: 12px; border: none; border-radius: 10px;
+  background: var(--blue); color: white;
+  font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+  margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.auth-btn:hover { background: var(--blue-dark); }
+.auth-btn:active { transform: scale(0.99); }
+.auth-btn:disabled { background: var(--gray-300); cursor: not-allowed; transform: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+  border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+}
+
+.stripe-info {
+  background: #EFF6FF; border: 1px solid #BFDBFE;
+  border-radius: 10px; padding: 13px 15px; margin-top: 16px;
+  font-size: 12px; color: #1D4ED8;
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.5;
+}
+.stripe-info svg { flex-shrink: 0; margin-top: 1px; }
+```
+
   </style>
 </head>
 <body>
-  <div class="auth-box">
-    <div class="auth-logo">
-      <svg width="30" height="36" viewBox="0 0 30 38" fill="none">
-        <path d="M15 2 L27 19 L15 23 L15 2Z" fill="#1A1A2E"/>
-        <path d="M27 19 L15 36 L15 23 Z" fill="#1A1A2E" opacity="0.38"/>
-        <path d="M3 19 L15 2 L15 23 Z" fill="#1A1A2E" opacity="0.72"/>
-        <path d="M15 36 L3 19 L15 23 Z" fill="#3B82F6"/>
-        <circle cx="15" cy="21" r="2.8" fill="white"/>
-        <circle cx="15" cy="21" r="1.2" fill="#3B82F6"/>
+  <div class="auth-wrap">
+    <div class="auth-box">
+
+```
+  <div class="auth-logo">
+    <svg width="30" height="36" viewBox="0 0 30 38" fill="none">
+      <path d="M15 2 L27 19 L15 23 L15 2Z" fill="#1A1A2E"/>
+      <path d="M27 19 L15 36 L15 23 Z" fill="#1A1A2E" opacity="0.38"/>
+      <path d="M3 19 L15 2 L15 23 Z" fill="#1A1A2E" opacity="0.72"/>
+      <path d="M15 36 L3 19 L15 23 Z" fill="#3B82F6"/>
+      <circle cx="15" cy="21" r="2.8" fill="white"/>
+      <circle cx="15" cy="21" r="1.2" fill="#3B82F6"/>
+    </svg>
+    <span class="logo-wordmark">Wiply<span>HQ</span></span>
+  </div>
+
+  <div class="role-selector">
+    <button class="role-btn active" id="role-owner" onclick="selectRole('owner')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
       </svg>
-      <span class="logo-wordmark">Wiply<span>HQ</span></span>
-    </div>
+      I'm a Business Owner
+    </button>
+    <button class="role-btn" id="role-cleaner" onclick="selectRole('cleaner')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      I'm a Cleaner
+    </button>
+  </div>
 
-    <!-- ROLE SELECTOR -->
-    <div class="role-selector">
-      <button class="role-btn active" id="role-owner" onclick="selectRole('owner')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        I'm a Business Owner
-      </button>
-      <button class="role-btn" id="role-cleaner" onclick="selectRole('cleaner')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        I'm a Cleaner
-      </button>
-    </div>
+  <div id="owner-tabs" class="auth-tabs">
+    <button class="auth-tab active" onclick="switchTab('login', event)">Sign In</button>
+    <button class="auth-tab" onclick="switchTab('register', event)">Create Account</button>
+  </div>
 
-    <!-- TABS (only for owner) -->
-    <div id="owner-tabs" class="auth-tabs">
-      <button class="auth-tab active" onclick="switchTab('login', event)">Login</button>
-      <button class="auth-tab" onclick="switchTab('register', event)">Create account</button>
-    </div>
+  <div id="error-msg" class="auth-error"></div>
+  <div id="success-msg" class="auth-success"></div>
 
-    <div id="error-msg" class="auth-error"></div>
-
-    <!-- LOGIN -->
-    <div id="tab-login">
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input class="form-input" type="email" id="login-email" placeholder="your@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <input class="form-input" type="password" id="login-password" placeholder="••••••••">
-      </div>
-      <button class="auth-btn" onclick="login()">Sign In</button>
+  <!-- LOGIN -->
+  <div id="tab-login">
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
     </div>
-
-    <!-- REGISTER (owner only) -->
-    <div id="tab-register" style="display:none">
-      <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input class="form-input" type="text" id="reg-name" placeholder="Your name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input class="form-input" type="email" id="reg-email" placeholder="your@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <input class="form-input" type="password" id="reg-password" placeholder="••••••••">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Company</label>
-        <input class="form-input" type="text" id="reg-company" placeholder="Your company name">
-      </div>
-      <button class="auth-btn" onclick="register()">Create Account</button>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
     </div>
+    <button class="auth-btn" id="login-btn" onclick="login()">
+      <span class="spinner" id="login-spinner"></span>
+      <span id="login-btn-text">Sign In</span>
+    </button>
+  </div>
+
+  <!-- REGISTER (owner only) -->
+  <div id="tab-register" style="display:none">
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input class="form-input" type="text" id="reg-name" placeholder="Your name" autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" id="reg-email" placeholder="your@email.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" id="reg-password" placeholder="••••••••" autocomplete="new-password">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Company Name</label>
+      <input class="form-input" type="text" id="reg-company" placeholder="Your cleaning company">
+    </div>
+    <button class="auth-btn" id="register-btn" onclick="register()">
+      <span class="spinner" id="register-spinner"></span>
+      <span id="register-btn-text">Create Account & Subscribe</span>
+    </button>
+    <div class="stripe-info">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      After creating your account, you'll choose a subscription plan. Secure payment via Stripe.
+    </div>
+  </div>
+
+</div>
+```
+
   </div>
 
   <script>
     var API = 'https://wiplyhq-backend-production.up.railway.app';
     var currentRole = 'owner';
+
+    // Já logado — redireciona
+    (function() {
+      var token = localStorage.getItem('token');
+      var user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (token) {
+        window.location.href = user.role === 'cleaner' ? 'cleaner.html' : 'index.html';
+      }
+    })();
+
+    // Voltou do Stripe
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('success') === 'true') {
+        var pt = localStorage.getItem('pending_token');
+        var pu = localStorage.getItem('pending_user');
+        if (pt && pu) {
+          localStorage.setItem('token', pt);
+          localStorage.setItem('user', pu);
+          localStorage.removeItem('pending_token');
+          localStorage.removeItem('pending_user');
+          window.location.href = 'index.html';
+        }
+      }
+      if (params.get('canceled') === 'true') {
+        showError('Subscription canceled. Please try again to access WiplyHQ.');
+      }
+    })();
 
     function selectRole(role) {
       currentRole = role;
@@ -104,7 +265,7 @@
       document.getElementById('tab-login').style.display = 'block';
       document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
       document.querySelector('.auth-tab').classList.add('active');
-      document.getElementById('error-msg').style.display = 'none';
+      hideMessages();
     }
 
     function switchTab(tab, e) {
@@ -112,77 +273,110 @@
       e.target.classList.add('active');
       document.getElementById('tab-login').style.display = tab === 'login' ? 'block' : 'none';
       document.getElementById('tab-register').style.display = tab === 'register' ? 'block' : 'none';
-      document.getElementById('error-msg').style.display = 'none';
+      hideMessages();
     }
 
     function showError(msg) {
       var el = document.getElementById('error-msg');
-      el.textContent = msg;
-      el.style.display = 'block';
+      el.textContent = msg; el.style.display = 'block';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
+    function showSuccess(msg) {
+      var el = document.getElementById('success-msg');
+      el.textContent = msg; el.style.display = 'block';
+      document.getElementById('error-msg').style.display = 'none';
+    }
+
+    function hideMessages() {
+      document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
+    function setLoading(type, loading) {
+      var btn = document.getElementById(type + '-btn');
+      var spinner = document.getElementById(type + '-spinner');
+      var text = document.getElementById(type + '-btn-text');
+      btn.disabled = loading;
+      spinner.style.display = loading ? 'block' : 'none';
+      if (type === 'login') text.textContent = loading ? 'Signing in...' : 'Sign In';
+      else text.textContent = loading ? 'Creating account...' : 'Create Account & Subscribe';
     }
 
     function login() {
-      var email = document.getElementById('login-email').value;
+      var email = document.getElementById('login-email').value.trim();
       var password = document.getElementById('login-password').value;
-      if (!email || !password) return showError('Please fill in all fields');
+      if (!email || !password) return showError('Please fill in all fields.');
+      hideMessages();
+      setLoading('login', true);
 
       fetch(API + '/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: password })
       })
-      .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
-      .then(function(result) {
-        if (!result.ok) return showError(result.data.error);
+      .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+      .then(function(r) {
+        setLoading('login', false);
+        if (!r.ok) return showError(r.data.error || 'Invalid email or password.');
+        var user = r.data.user;
 
-        var user = result.data.user;
+        if (currentRole === 'cleaner' && user.role !== 'cleaner')
+          return showError('This is a business owner account. Select "I\'m a Business Owner".');
+        if (currentRole === 'owner' && user.role === 'cleaner')
+          return showError('This is a cleaner account. Select "I\'m a Cleaner".');
 
-        if (currentRole === 'cleaner' && user.role !== 'cleaner') {
-          return showError('This account is not a cleaner account.');
-        }
-        if (currentRole === 'owner' && user.role !== 'owner') {
-          return showError('This account is not a business owner account.');
-        }
-
-        localStorage.setItem('token', result.data.token);
+        localStorage.setItem('token', r.data.token);
         localStorage.setItem('user', JSON.stringify(user));
-
-        if (user.role === 'cleaner') {
-          window.location.href = 'cleaner.html';
-        } else {
-          window.location.href = 'index.html';
-        }
+        window.location.href = user.role === 'cleaner' ? 'cleaner.html' : 'index.html';
       })
-      .catch(function() { showError('Error connecting to server'); });
+      .catch(function() {
+        setLoading('login', false);
+        showError('Could not connect to server. Please try again.');
+      });
     }
 
     function register() {
-      var name = document.getElementById('reg-name').value;
-      var email = document.getElementById('reg-email').value;
+      var name = document.getElementById('reg-name').value.trim();
+      var email = document.getElementById('reg-email').value.trim();
       var password = document.getElementById('reg-password').value;
-      var company = document.getElementById('reg-company').value;
-      if (!name || !email || !password) return showError('Please fill in all fields');
+      var company = document.getElementById('reg-company').value.trim();
+      if (!name || !email || !password) return showError('Please fill in all required fields.');
+      hideMessages();
+      setLoading('register', true);
 
       fetch(API + '/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, email: email, password: password, company: company })
+        body: JSON.stringify({ name: name, email: email, password: password, company: company, role: 'owner' })
       })
-      .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
-      .then(function(result) {
-        if (!result.ok) return showError(result.data.error);
-        localStorage.setItem('token', result.data.token);
-        localStorage.setItem('user', JSON.stringify(result.data.user));
-        window.location.href = 'index.html';
+      .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+      .then(function(r) {
+        if (!r.ok) { setLoading('register', false); return showError(r.data.error || 'Error creating account.'); }
+        localStorage.setItem('pending_token', r.data.token);
+        localStorage.setItem('pending_user', JSON.stringify(r.data.user));
+        return fetch(API + '/api/stripe/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + r.data.token }
+        });
       })
-      .catch(function() { showError('Error connecting to server'); });
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.url) { window.location.href = data.url; }
+        else { setLoading('register', false); showError('Error creating payment session.'); }
+      })
+      .catch(function() {
+        setLoading('register', false);
+        showError('Could not connect to server. Please try again.');
+      });
     }
 
-    if (localStorage.getItem('token')) {
-      var u = JSON.parse(localStorage.getItem('user') || '{}');
-      if (u.role === 'cleaner') window.location.href = 'cleaner.html';
-      else window.location.href = 'index.html';
-    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      var loginVisible = document.getElementById('tab-login').style.display !== 'none';
+      if (loginVisible) login(); else register();
+    });
   </script>
+
 </body>
 </html>

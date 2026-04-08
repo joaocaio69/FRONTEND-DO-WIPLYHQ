@@ -1,63 +1,464 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WiplyHQ — My Jobs</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { background: var(--gray-50); }
-    .cleaner-dashboard { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
-    .cleaner-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
-    .cleaner-logo { display: flex; align-items: center; gap: 10px; }
-    .cleaner-welcome { font-size: 14px; color: var(--gray-500); }
-    .cleaner-welcome span { font-weight: 600; color: var(--navy); }
-    .logout-btn { padding: 8px 16px; border: 1px solid var(--gray-200); border-radius: 8px; background: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; }
-    .logout-btn:hover { background: var(--gray-50); }
-    .jobs-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
-    .job-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .job-card-left { display: flex; flex-direction: column; gap: 6px; }
-    .job-card-client { font-size: 16px; font-weight: 600; color: var(--navy); }
-    .job-card-meta { display: flex; gap: 16px; flex-wrap: wrap; }
-    .job-card-meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-500); }
-    .job-card-meta-item svg { width: 14px; height: 14px; }
-    .job-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-    .job-price { font-size: 18px; font-weight: 700; color: var(--navy); }
-    .complete-btn { padding: 8px 16px; border: none; border-radius: 8px; background: var(--blue); color: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
-    .complete-btn:hover { background: #2563EB; }
-    .complete-btn:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
-    .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); font-size: 15px; }
-    .summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-    .summary-card { background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px 20px; }
-    .summary-label { font-size: 12px; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
-    .summary-value { font-size: 22px; font-weight: 700; color: var(--navy); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #3B82F6;
+      --blue-dark: #2563EB;
+      --navy: #1A1A2E;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E1;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --green: #10B981;
+      --green-light: #D1FAE5;
+      --amber: #F59E0B;
+      --amber-light: #FEF3C7;
+    }
+
+```
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gray-50);
+  min-height: 100vh;
+  color: var(--navy);
+}
+
+/* ── HEADER ── */
+.header {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-logo { display: flex; align-items: center; gap: 10px; }
+.logo-wordmark { font-size: 18px; font-weight: 700; color: var(--navy); letter-spacing: -0.3px; }
+.logo-wordmark span { color: var(--blue); }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+.header-welcome { font-size: 13px; color: var(--gray-500); }
+.header-welcome strong { color: var(--navy); font-weight: 600; }
+
+.logout-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.logout-btn:hover { background: var(--gray-50); border-color: var(--gray-300); }
+.logout-btn svg { width: 14px; height: 14px; }
+
+/* ── CONTENT ── */
+.content { max-width: 800px; margin: 0 auto; padding: 32px 24px; }
+
+/* ── DATE TABS ── */
+.date-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.date-tab {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.date-tab:hover { border-color: var(--gray-300); color: var(--gray-600); }
+.date-tab.active { border-color: var(--blue); background: #EFF6FF; color: var(--blue); font-weight: 600; }
+
+/* ── SUMMARY CARDS ── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.summary-label { font-size: 12px; color: var(--gray-400); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.4px; }
+.summary-value { font-size: 26px; font-weight: 700; color: var(--navy); line-height: 1; }
+.summary-value.green { color: var(--green); }
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+/* ── JOB CARDS ── */
+.job-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: box-shadow 0.15s;
+}
+.job-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.job-card.completed { opacity: 0.65; }
+
+.job-card-left { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.job-card-client { font-size: 16px; font-weight: 600; color: var(--navy); }
+
+.job-card-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+.meta-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 13px; color: var(--gray-500);
+}
+.meta-item svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+.job-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.job-price { font-size: 20px; font-weight: 700; color: var(--navy); }
+
+.complete-btn {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--blue);
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.complete-btn:hover { background: var(--blue-dark); }
+.complete-btn:active { transform: scale(0.97); }
+.complete-btn:disabled {
+  background: var(--green-light);
+  color: var(--green);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Status badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.badge-scheduled { background: #EFF6FF; color: #3B82F6; }
+.badge-in-progress { background: var(--amber-light); color: #92400E; }
+.badge-completed { background: var(--green-light); color: #065F46; }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray-400);
+}
+.empty-state svg { width: 48px; height: 48px; margin: 0 auto 16px; display: block; opacity: 0.4; }
+.empty-state p { font-size: 15px; }
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gray-400);
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .summary-value { font-size: 20px; }
+  .job-card { flex-direction: column; align-items: flex-start; }
+  .job-card-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+  .header-welcome { display: none; }
+}
+```
+
   </style>
 </head>
 <body>
-  <div class="cleaner-dashboard">
-    <div class="cleaner-header">
-      <div class="cleaner-logo">
-        <svg width="28" height="34" viewBox="0 0 30 38" fill="none">
-          <path d="M15 2 L27 19 L15 23 L15 2Z" fill="#1A1A2E"/>
-          <path d="M27 19 L15 36 L15 23 Z" fill="#1A1A2E" opacity="0.38"/>
-          <path d="M3 19 L15 2 L15 23 Z" fill="#1A1A2E" opacity="0.72"/>
-          <path d="M15 36 L3 19 L15 23 Z" fill="#3B82F6"/>
-          <circle cx="15" cy="21" r="2.8" fill="white"/>
-          <circle cx="15" cy="21" r="1.2" fill="#3B82F6"/>
-        </svg>
-        <span class="logo-wordmark">Wiply<span>HQ</span></span>
-      </div>
-      <div class="cleaner-welcome">Welcome, <span id="cleaner-name">...</span></div>
-      <button class="logout-btn" onclick="logout()">Log out</button>
-    </div>
 
-    <div class="summary-cards">
-      <div class="summary-card">
-        <div class="summary-label">Upcoming Jobs</div>
-        <div class="summary-value" id="total-jobs">0</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-label">Completed</div>
-        <div class="summary-value" id="completed-jobs">0</div>
-      </div>
-      <div class
+  <!-- HEADER -->
+
+  <header class="header">
+    <div class="header-logo">
+      <svg width="26" height="32" viewBox="0 0 30 38" fill="none">
+        <path d="M15 2 L27 19 L15 23 L15 2Z" fill="#1A1A2E"/>
+        <path d="M27 19 L15 36 L15 23 Z" fill="#1A1A2E" opacity="0.38"/>
+        <path d="M3 19 L15 2 L15 23 Z" fill="#1A1A2E" opacity="0.72"/>
+        <path d="M15 36 L3 19 L15 23 Z" fill="#3B82F6"/>
+        <circle cx="15" cy="21" r="2.8" fill="white"/>
+        <circle cx="15" cy="21" r="1.2" fill="#3B82F6"/>
+      </svg>
+      <span class="logo-wordmark">Wiply<span>HQ</span></span>
+    </div>
+    <div class="header-right">
+      <div class="header-welcome">Welcome, <strong id="cleaner-name">...</strong></div>
+      <button class="logout-btn" onclick="logout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log out
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+
+  <div class="content">
+
+```
+<!-- Summary -->
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="summary-label">Today's Jobs</div>
+    <div class="summary-value" id="count-today">0</div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-label">Upcoming</div>
+    <div class="summary-value" id="count-upcoming">0</div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-label">Completed</div>
+    <div class="summary-value green" id="count-completed">0</div>
+  </div>
+</div>
+
+<!-- Date filter tabs -->
+<div class="date-tabs">
+  <button class="date-tab active" id="tab-today" onclick="filterJobs('today')">Today</button>
+  <button class="date-tab" id="tab-upcoming" onclick="filterJobs('upcoming')">Upcoming</button>
+  <button class="date-tab" id="tab-completed" onclick="filterJobs('completed')">Completed</button>
+  <button class="date-tab" id="tab-all" onclick="filterJobs('all')">All Jobs</button>
+</div>
+
+<!-- Jobs list -->
+<div class="section-title" id="jobs-section-title">Today's Jobs</div>
+<div id="jobs-list">
+  <div class="loading">Loading your jobs...</div>
+</div>
+```
+
+  </div>
+
+  <script>
+    var API = 'https://wiplyhq-backend-production.up.railway.app';
+    var token = localStorage.getItem('token');
+    var user = JSON.parse(localStorage.getItem('user') || '{}');
+    var allJobs = [];
+    var currentFilter = 'today';
+
+    // ── PROTEÇÃO DE ROTA ──
+    if (!token) window.location.href = 'login.html';
+    if (user.role !== 'cleaner') window.location.href = 'index.html';
+
+    // Nome do cleaner no header
+    if (user.name) {
+      document.getElementById('cleaner-name').textContent = user.name.split(' ')[0];
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = 'login.html';
+    }
+
+    // ── LOAD JOBS ──
+    function loadJobs() {
+      fetch(API + '/api/jobs', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(function(res) {
+        if (res.status === 401) { logout(); return; }
+        return res.json();
+      })
+      .then(function(jobs) {
+        if (!jobs) return;
+        allJobs = jobs;
+        updateSummary();
+        renderJobs(currentFilter);
+      })
+      .catch(function() {
+        document.getElementById('jobs-list').innerHTML =
+          '<div class="empty-state"><p>Could not load jobs. Please check your connection.</p></div>';
+      });
+    }
+
+    function updateSummary() {
+      var today = new Date().toDateString();
+      var todayJobs = allJobs.filter(function(j) {
+        return new Date(j.scheduledAt).toDateString() === today;
+      });
+      var upcoming = allJobs.filter(function(j) {
+        return new Date(j.scheduledAt) > new Date() && j.status !== 'completed';
+      });
+      var completed = allJobs.filter(function(j) { return j.status === 'completed'; });
+
+      document.getElementById('count-today').textContent = todayJobs.length;
+      document.getElementById('count-upcoming').textContent = upcoming.length;
+      document.getElementById('count-completed').textContent = completed.length;
+    }
+
+    function filterJobs(filter) {
+      currentFilter = filter;
+
+      // Update tab styles
+      ['today','upcoming','completed','all'].forEach(function(f) {
+        document.getElementById('tab-' + f).classList.toggle('active', f === filter);
+      });
+
+      var titles = {
+        today: "Today's Jobs",
+        upcoming: "Upcoming Jobs",
+        completed: "Completed Jobs",
+        all: "All Jobs"
+      };
+      document.getElementById('jobs-section-title').textContent = titles[filter];
+
+      renderJobs(filter);
+    }
+
+    function renderJobs(filter) {
+      var today = new Date().toDateString();
+      var now = new Date();
+
+      var filtered = allJobs.filter(function(job) {
+        if (filter === 'today') return new Date(job.scheduledAt).toDateString() === today;
+        if (filter === 'upcoming') return new Date(job.scheduledAt) > now && job.status !== 'completed';
+        if (filter === 'completed') return job.status === 'completed';
+        return true; // all
+      });
+
+      // Sort by date
+      filtered.sort(function(a, b) { return new Date(a.scheduledAt) - new Date(b.scheduledAt); });
+
+      var list = document.getElementById('jobs-list');
+
+      if (!filtered.length) {
+        var emptyMessages = {
+          today: "No jobs scheduled for today. Enjoy your day off! 🎉",
+          upcoming: "No upcoming jobs. Add new jobs from the owner dashboard.",
+          completed: "No completed jobs yet.",
+          all: "No jobs found."
+        };
+        list.innerHTML = '<div class="empty-state">'
+          + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>'
+          + '<p>' + emptyMessages[filter] + '</p></div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      filtered.forEach(function(job) {
+        list.innerHTML += buildJobCard(job);
+      });
+    }
+
+    function buildJobCard(job) {
+      var date = new Date(job.scheduledAt);
+      var dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      var timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+      var isCompleted = job.status === 'completed';
+      var isInProgress = job.status === 'in-progress';
+
+      var badgeClass = isCompleted ? 'badge-completed' : isInProgress ? 'badge-in-progress' : 'badge-scheduled';
+      var badgeText = isCompleted ? '✓ Completed' : isInProgress ? '● In Progress' : '◦ Scheduled';
+
+      var btnText = isCompleted ? '✓ Done' : 'Mark Complete';
+      var btnDisabled = isCompleted ? 'disabled' : '';
+
+      return '<div class="job-card' + (isCompleted ? ' completed' : '') + '" id="job-' + job.id + '">'
+        + '<div class="job-card-left">'
+          + '<div class="job-card-client">' + job.client.name + '</div>'
+          + '<div class="job-card-meta">'
+            + '<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' + dateStr + ' at ' + timeStr + '</div>'
+            + '<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + job.client.address + '</div>'
+          + '</div>'
+          + '<span class="badge ' + badgeClass + '">' + badgeText + '</span>'
+        + '</div>'
+        + '<div class="job-card-right">'
+          + '<div class="job-price">$' + job.price + '</div>'
+          + '<button class="complete-btn" ' + btnDisabled + ' onclick="completeJob(\'' + job.id + '\', this)">' + btnText + '</button>'
+        + '</div>'
+        + '</div>';
+    }
+
+    function completeJob(jobId, btn) {
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      fetch(API + '/api/jobs/' + jobId, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ status: 'completed' })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(updated) {
+        // Atualiza o job na lista local
+        allJobs = allJobs.map(function(j) {
+          return j.id === jobId ? Object.assign({}, j, { status: 'completed' }) : j;
+        });
+        updateSummary();
+        renderJobs(currentFilter);
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Mark Complete';
+        alert('Error updating job. Please try again.');
+      });
+    }
+
+    // Carrega jobs ao iniciar
+    loadJobs();
+
+    // Atualiza a cada 60 segundos
+    setInterval(loadJobs, 60000);
+  </script>
+
+</body>
+</html>
