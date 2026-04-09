@@ -49,7 +49,7 @@ fetch(API + "/api/clients", { headers: { "Authorization": "Bearer " + token } })
 var grid = document.getElementById("clientsGrid");
 grid.innerHTML = "";
 if (!clients.length) {
-grid.innerHTML = "<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:48px 0;">No clients yet. Add your first client!</div>";
+grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:48px 0;">No clients yet. Add your first client!</div>';
 return;
 }
 clients.forEach(function(client) {
